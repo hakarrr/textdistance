@@ -55,6 +55,9 @@ def test_distance(left, right, expected):
     (([1, 2], [3, 4], [5, 6]), 1, []),
     ((b'abc', b'def', b'ghi'), 1, b''),
     ((('a', 'b'), ('ab',), ('ab',)), 1, ()),
+    (([1, 2, 3], (0, 2, 3), [4, 2, 3]), 1, [2, 3]),
+    (('abc', ['x', 'b', 'c'], ('y', 'b', 'c')), 1, 'bc'),
+    ((b'abc', [0, 98, 99], (1, 98, 99)), 1, b'bc'),
 ])
 def test_prepared_subsequences(sequences, qval, expected):
     alg = ALG(qval=qval)
