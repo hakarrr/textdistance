@@ -117,10 +117,13 @@ class LCSStr(_BaseSimilarity):
             for start in range(length - n + 1):
                 subseq = short[start:start + n]
                 for seq in sequences:
-                    if isinstance(seq, (str, bytes)):
+                    if isinstance(subseq, (str, bytes)) and isinstance(seq, type(subseq)):
                         found = subseq in seq
                     else:
-                        found = any(seq[i:i + n] == subseq for i in range(len(seq) - n + 1))
+                        found = any(
+                            all(seq[i + j] == item for j, item in enumerate(subseq))
+                            for i in range(len(seq) - n + 1)
+                        )
                     if not found:
                         break
                 else:
